@@ -21,14 +21,29 @@ const Header = () => {
     )
 }
 
-const RestaurantCard = () => {
+// const RestaurantCard = (props) => {
+//     console.log(props)
+//     return (
+//         <div className='res-card'>
+//             <img className='res-logo' src={rescard}/>
+//             <h3>{props.resname}</h3> 
+//             <h4>{props.cuisine}</h4>   
+//             <h4>{props.rating}</h4> 
+//             <h4>{props.deltime}</h4>       
+//         </div>
+//     )
+// }
+
+const RestaurantCard = (props) => {
+    const { resname,cuisine,rating,deltime } = props
+    // console.log(props)
     return (
         <div className='res-card'>
             <img className='res-logo' src={rescard}/>
-            <h3>KFC</h3> 
-            <h4>Fast Food,Not Indian</h4>   
-            <h4>4.5 stars</h4> 
-            <h4>30 minutes</h4>       
+            <h3>{resname}</h3> 
+            <h4>{cuisine}</h4>   
+            <h4>{rating}</h4> 
+            <h4>{deltime}</h4>       
         </div>
     )
 }
@@ -40,13 +55,8 @@ const Body = () => {
                 Search
             </div>
             <div className='res-container'>
-                <RestaurantCard/>
-                <RestaurantCard/>
-                <RestaurantCard/>
-                <RestaurantCard/>
-                <RestaurantCard/>
-                <RestaurantCard/>
-                <RestaurantCard/>
+                <RestaurantCard resname="KFC" cuisine="Fast Food" rating="4.5 Stars" deltime="30 minutes"/>
+                <RestaurantCard resname="Burger King" cuisine="Burger" rating="4.2 Stars" deltime="35 minutes"/>
             </div>
         </div>
     )
