@@ -2,77 +2,20 @@ import RestaurantCard from './RestaurantCard.js'
 import { useState } from 'react';
 import restaurantList from '../utils/mockData.js';
 
-// const Body = () => {
-//     // Normal JS variable 
-//     let listOfRestaurants = [
-//     {
-//         data: {
-//           id: "75453",
-//           name: "Domino's Pizza",
-//           cloudinaryImageId: "bz9zkh2aqywjhpankb07",
-//           cuisines: ["Pizzas"],
-//           costForTwo : 40000,
-//           deliveryTime: 45,
-//           avgRating: "4.5",
-//         }
-//     },
-//     {
-//         data: {
-//           id: "74453",
-//           name: "KFC",
-//           cloudinaryImageId: "bz9zkh2aqywjhpankb07",
-//           cuisines: ["Chicken"],
-//           costForTwo : 50000,
-//           deliveryTime: 45,
-//           avgRating: "3.8",
-//         }
-//     },
-//     {
-//         data: {
-//           id: "79453",
-//           name: "MC Donalds",
-//           cloudinaryImageId: "bz9zkh2aqywjhpankb07",
-//           cuisines: ["Burger"],
-//           costForTwo : 35000,
-//           deliveryTime: 45,
-//           avgRating: "4.2",
-//         }
-//     },
-//     ];
-//     // Console logs filters but UI doesnt get updated 
-//     return (
-//         <div className='body'>
-//             <div className='filter'>
-//                 <button className='filter-btn' 
-//                         onClick={ () => 
-//                             {
-//                                 listOfRestaurants = listOfRestaurants.filter(
-//                                     (res)=> res.data.avgRating > 4
-//                                 );
-//                                 console.log(listOfRestaurants)
-//                             }
-//                         }>
-//                     Top Rated Restaurant
-//                 </button>
-//             </div>
-//             <div className='res-container'>
-//                 {
-//                   listOfRestaurants.map(
-//                     (restaurant) => 
-//                     <RestaurantCard key={restaurant.data.id} resData={restaurant}/>
-//                   )
-//                 }
-//             </div>
-//         </div>
-//     )
-// }
+
+function filterData(searchText, restaurants) {
+    const filterData = restaurants.filter((restaurant) =>
+      restaurant?.data?.name.toLowerCase().includes(searchText.toLowerCase())
+    );
+    return filterData;
+}
 
 
 const Body = () => {
 
     // Local State Variable - Super Power Variable
     const [listOfRestaurants,setListOfRestaurants] = useState(restaurantList);
-
+    const [searchText,setSearchText] = useState("");
 
     return (
         <div className='body'>
@@ -88,6 +31,21 @@ const Body = () => {
                         }>
                     Top Rated Restaurant
                 </button>
+            </div>
+            <div className='search-container'>
+                <input 
+                    type = "text"
+                    className = "search-input"
+                    value = {searchText}
+                    placeholder='Enter name of your restaurant'
+                    onChange={ (e) => setSearchText(e.target.value) }
+                />
+                <button className='search-btn'
+                        onClick={()=>{
+                            const filteredData = filterData(searchText,listOfRestaurants)
+                            setListOfRestaurants(filteredData)
+                        }}
+                ></button>   
             </div>
             <div className='res-container'>
                 {
