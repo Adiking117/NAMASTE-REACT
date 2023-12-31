@@ -4,6 +4,7 @@ import Header from './components/Header.js'
 import Body from './components/Body.js'
 
 const AppLayout = () => {
+    // console.log("React Virtual DOM",<Body/>)
     return (
         <div className ="app">
             <Header/>
