@@ -1,72 +1,66 @@
 import React from 'react';
 import ReactDOM  from 'react-dom/client';
+import logo from './images/logo.png';
+import rescard from './images/res-card.jpg'
 
-// React element
+const Header = () => {
+    return (
+        <div className='header'>
+            <div className='logo-container'>
+                <img className='logo' src = {logo}/>
+            </div>
+            <div className='nav-items'>
+                <ul>
+                    <li>Home</li>
+                    <li>About</li>
+                    <li>Contact</li>
+                    <li>Cart</li>
+                </ul>
+            </div>
+        </div>
+    )
+}
 
-// const heading = React.createElement("h1",{ id:"heading"},"Adiking came")
+const RestaurantCard = () => {
+    return (
+        <div className='res-card'>
+            <img className='res-logo' src={rescard}/>
+            <h3>KFC</h3> 
+            <h4>Fast Food,Not Indian</h4>   
+            <h4>4.5 stars</h4> 
+            <h4>30 minutes</h4>       
+        </div>
+    )
+}
 
-// root.render(heading)
+const Body = () => {
+    return (
+        <div className='body'>
+            <div className='search'>
+                Search
+            </div>
+            <div className='res-container'>
+                <RestaurantCard/>
+                <RestaurantCard/>
+                <RestaurantCard/>
+                <RestaurantCard/>
+                <RestaurantCard/>
+                <RestaurantCard/>
+                <RestaurantCard/>
+            </div>
+        </div>
+    )
+}
 
-// console.log(heading)
+const AppLayout = () => {
+    return (
+        <div className ="app">
+            <Header/>
+            <Body/>
+        </div>
+    )
+}
 
-
-// JSX => Not HTML inside JS
-
-// const heading = ( <h1 className="root">
-//     Adiking is hero</h1> 
-// );
-// const root = ReactDOM.createRoot(document.getElementById("root"))
-// root.render(heading)
-// console.log(heading)
-
-
-
-// const fn = () => true;
-// const fn = () => { return true; };
-
-
-
- // Functional Component which returns some JSX
-const Title = () =>{
-    return <h1>Adiking in function</h1>;
-};
-
-
-// const root = ReactDOM.createRoot(document.getElementById("root"))
-// root.render(<Title />)
-const title = (
-    <h1>Adiking in JSX</h1>
-)
-const spanya = <span> Hi theere </span>
-
-
-
-// component composition
-// const HeadingComponent = () => (
-//     <div id="container">
-//         <Title/> 
-//         <h1 className='heading'>Adiking in one line function</h1>;
-//     </div>
-// );
-
-// const data = api.getData() // suppose this is a malicious api
-// jsx will sanitise this data
-
-
-
-// {} inside this any piece of js code will work
-const HeadingComponent = () => (
-    <div id="container">
-        <Title/>
-        {title}
-        {spanya}
-        {100 + 200} 
-        {Title()}
-        {console.log("hey i am inside {} majja ali")}    
-        <h1 className='heading'>Adiking in one line function</h1>
-    </div>
-);
 
 const root = ReactDOM.createRoot(document.getElementById("root"))
-root.render(<HeadingComponent />)
-// root.render(HeadingComponent())
+root.render(<AppLayout />)
