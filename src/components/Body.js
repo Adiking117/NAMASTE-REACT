@@ -1,21 +1,39 @@
 import RestaurantCard from './RestaurantCard.js'
-import { useState } from 'react';
-import restaurantList from '../utils/mockData.js';
-
+import { useState,useEffect } from 'react';
+import { swiggy_api_URL } from '../utils/constants.js';
 
 function filterData(searchText, restaurants) {
     const filterData = restaurants.filter((restaurant) =>
-      restaurant?.data?.name.toLowerCase().includes(searchText.toLowerCase())
+      restaurant?.name?.toLowerCase().includes(searchText.toLowerCase())
     );
     return filterData;
 }
 
-
 const Body = () => {
+    const newarr = [];
 
     // Local State Variable - Super Power Variable
-    const [listOfRestaurants,setListOfRestaurants] = useState(restaurantList);
+    const [listOfRestaurants,setListOfRestaurants] = useState(newarr);
     const [searchText,setSearchText] = useState("");
+
+    useEffect(()=>{
+        fetchData();
+    },[])
+
+    const fetchData = async() => {
+        const data = await fetch(swiggy_api_URL);
+        const json = await data.json();
+        const arr = json.data.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
+
+        const newarr = arr.map((res) => {
+                const { id, name, cloudinaryImageId, costForTwo, cuisines, avgRating } = res?.info;
+                const { deliveryTime } = res?.info?.sla;
+                const newobj = { id, name, cloudinaryImageId, costForTwo, cuisines, avgRating, deliveryTime };
+                return newobj;
+            }
+        );
+        setListOfRestaurants(newarr);
+    }
 
     return (
         <div className='body'>
@@ -24,7 +42,7 @@ const Body = () => {
                         onClick={ () => 
                             {
                                 const filteredList = listOfRestaurants.filter(
-                                    (res)=> res.data.avgRating > 4
+                                    (res)=> res.avgRating > 4.5
                                 );
                                 setListOfRestaurants(filteredList)
                             }
@@ -51,7 +69,7 @@ const Body = () => {
                 {
                   listOfRestaurants.map(
                     (restaurant) => 
-                    <RestaurantCard key={restaurant.data.id} resData={restaurant}/>
+                    <RestaurantCard key={restaurant.id} resData={restaurant}/>
                   )
                 }
             </div>
