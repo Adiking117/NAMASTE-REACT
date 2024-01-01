@@ -1,19 +1,28 @@
 import RestaurantCard from './RestaurantCard.js'
 import { useState,useEffect } from 'react';
 import { swiggy_api_URL } from '../utils/constants.js';
+import Shimmer from './Shimmer.js';
 
 function filterData(searchText, restaurants) {
-    const filterData = restaurants.filter((restaurant) =>
-      restaurant?.name?.toLowerCase().includes(searchText.toLowerCase())
+    const filterData = restaurants.filter((res) =>
+      res?.name?.toLowerCase().includes(searchText.toLowerCase())
     );
     return filterData;
 }
 
-const Body = () => {
-    const newarr = [];
+function mapData(arr){
+    return arr.map((res) => {
+        const { id, name, cloudinaryImageId, costForTwo, cuisines, avgRating } = res?.info;
+        const { deliveryTime } = res?.info?.sla;
+        const newobj = { id, name, cloudinaryImageId, costForTwo, cuisines, avgRating, deliveryTime };
+        return newobj;
+    });
+    // return newarr;
+}
 
-    // Local State Variable - Super Power Variable
-    const [listOfRestaurants,setListOfRestaurants] = useState(newarr);
+const Body = () => {
+
+    const [listOfRestaurants,setListOfRestaurants] = useState([]);
     const [searchText,setSearchText] = useState("");
 
     useEffect(()=>{
@@ -23,19 +32,19 @@ const Body = () => {
     const fetchData = async() => {
         const data = await fetch(swiggy_api_URL);
         const json = await data.json();
-        const arr = json.data.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
-
-        const newarr = arr.map((res) => {
-                const { id, name, cloudinaryImageId, costForTwo, cuisines, avgRating } = res?.info;
-                const { deliveryTime } = res?.info?.sla;
-                const newobj = { id, name, cloudinaryImageId, costForTwo, cuisines, avgRating, deliveryTime };
-                return newobj;
-            }
-        );
+        const arr = json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
+        const newarr = mapData(arr);
         setListOfRestaurants(newarr);
     }
 
-    return (
+    console.log("Body Component Re-Rendered after updating state Variable")
+
+    // // Conditional Rendering
+    // if(listOfRestaurants.length === 0){
+    //     return <Shimmer/>;
+    // }
+
+    return listOfRestaurants.length === 0 ? <Shimmer/> : (
         <div className='body'>
             <div className='filter'>
                 <button className='filter-btn' 
@@ -63,7 +72,7 @@ const Body = () => {
                             const filteredData = filterData(searchText,listOfRestaurants)
                             setListOfRestaurants(filteredData)
                         }}
-                ></button>   
+                >Search</button>   
             </div>
             <div className='res-container'>
                 {
