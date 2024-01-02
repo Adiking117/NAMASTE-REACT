@@ -12,10 +12,10 @@ function getName(resInfo){
 
 function getItems(resInfo){
     const items = resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card.card.itemCards
-    console.log(items)
+    // console.log(items)
     const newobj2 = items.map((res)=>{
-        const {id,name,price,defaultPrice,imageId} = res.card.info
-        return {id,name,price,defaultPrice,imageId}
+        const {id,name,price,defaultPrice,imageId,isVeg=0} = res.card.info
+        return {id,name,price,defaultPrice,imageId,isVeg}
     })
     return newobj2;
 }
@@ -24,7 +24,7 @@ function getItems(resInfo){
 const RestaurantMenu = () => {
     const { resId } = useParams();
     const [resInfo,setResInfo] = useState(null)
-
+    const [vegOnly,setVegOnly] = useState(false)
 
     useEffect(()=>{
         fetchMenu();
@@ -33,23 +33,49 @@ const RestaurantMenu = () => {
     const fetchMenu = async() => {
         const data = await fetch(swiggy_menu_api_URL+resId)
         const json = await data.json()
-        setResInfo(json.data);
+        //setResInfo(json.data);
+        setResInfo(json.data)
     }
+    
+    // const handleVegOnlyClick = () => {
+    //     const filterVeg = items.filter((item) => {
+    //       return item.isVeg === 1;
+    //     });
+    //     console.log("veg-items",filterVeg)
+    // };
+
+    const handleVegOnlyClick = () => {
+        setVegOnly(true)
+    };
 
     if(resInfo===null) return <Shimmer/>;
 
     const resdetails = getName(resInfo);
     // console.log("resdetails" ,resdetails)
     const items = getItems(resInfo);
-    console.log("items" ,items)
+    console.log("all-items" ,items)
 
     return (
         <div className="menu">
             <h1>{resdetails.name}</h1>
             <h3>{resdetails.city} - {resdetails.avgRating}</h3>
             <br/>
+            <button onClick={handleVegOnlyClick}>Veg-Only</button>
             <ul className="item-list">
                 {
+                    (vegOnly)
+                    ?
+                    items.filter((item)=>{return item.isVeg===1}).map((item)=>{
+                        return (
+                                    <div key={item.id}>
+                                        <li>
+                                            {item.name} -- Price is Rs.{item.price/100 || item.defaultPrice/100}
+                                        </li>
+                                        <img src = {IMG_CDN_URL+item.imageId}/>
+                                    </div>
+                        )         
+                    })
+                    : 
                     items.map((item)=>{
                         return (
                                     <div key={item.id}>
@@ -58,7 +84,7 @@ const RestaurantMenu = () => {
                                         </li>
                                         <img src = {IMG_CDN_URL+item.imageId}/>
                                     </div>
-                                )         
+                        )         
                     })
                 }
             </ul>
