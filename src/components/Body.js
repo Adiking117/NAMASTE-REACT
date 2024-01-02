@@ -23,6 +23,7 @@ function mapData(arr){
 const Body = () => {
 
     const [listOfRestaurants,setListOfRestaurants] = useState([]);
+    const [filteredList,setFilteredList] = useState([])
     const [searchText,setSearchText] = useState("");
 
     useEffect(()=>{
@@ -35,6 +36,7 @@ const Body = () => {
         const arr = json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
         const newarr = mapData(arr);
         setListOfRestaurants(newarr);
+        setFilteredList(newarr);
     }
 
     console.log("Body Component Re-Rendered after updating state Variable")
@@ -51,7 +53,7 @@ const Body = () => {
                         onClick={ () => 
                             {
                                 const filteredList = listOfRestaurants.filter(
-                                    (res)=> res.avgRating > 4.5
+                                    (res)=> res.avgRating > 4.2
                                 );
                                 setListOfRestaurants(filteredList)
                             }
@@ -70,13 +72,13 @@ const Body = () => {
                 <button className='search-btn'
                         onClick={()=>{
                             const filteredData = filterData(searchText,listOfRestaurants)
-                            setListOfRestaurants(filteredData)
+                            setFilteredList(filteredData)
                         }}
                 >Search</button>   
             </div>
             <div className='res-container'>
                 {
-                  listOfRestaurants.map(
+                  filteredList.map(
                     (restaurant) => 
                     <RestaurantCard key={restaurant.id} resData={restaurant}/>
                   )
