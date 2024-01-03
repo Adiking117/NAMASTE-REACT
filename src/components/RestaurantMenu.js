@@ -20,6 +20,19 @@ function getItems(resInfo){
     return newobj2;
 }
 
+function mapItems(items){
+    return items.map((item)=>{
+        return (
+                    <div key={item.id}>
+                        <li>
+                            {item.name} -- Price is Rs.{item.price/100 || item.defaultPrice/100}
+                        </li>
+                        <img src = {IMG_CDN_URL+item.imageId}/>
+                    </div>
+        )         
+    })
+}
+
 
 const RestaurantMenu = () => {
     const { resId } = useParams();
@@ -37,13 +50,6 @@ const RestaurantMenu = () => {
         setResInfo(json.data)
     }
     
-    // const handleVegOnlyClick = () => {
-    //     const filterVeg = items.filter((item) => {
-    //       return item.isVeg === 1;
-    //     });
-    //     console.log("veg-items",filterVeg)
-    // };
-
     const handleVegOnlyClick = () => {
         setVegOnly(true)
     };
@@ -53,7 +59,9 @@ const RestaurantMenu = () => {
     const resdetails = getName(resInfo);
     // console.log("resdetails" ,resdetails)
     const items = getItems(resInfo);
-    console.log("all-items" ,items)
+    // console.log("all-items" ,items)
+    const vegItems = items.filter((item)=>{return item.isVeg===1})
+    // console.log("veg-items",vegItems);
 
     return (
         <div className="menu">
@@ -63,29 +71,7 @@ const RestaurantMenu = () => {
             <button onClick={handleVegOnlyClick}>Veg-Only</button>
             <ul className="item-list">
                 {
-                    (vegOnly)
-                    ?
-                    items.filter((item)=>{return item.isVeg===1}).map((item)=>{
-                        return (
-                                    <div key={item.id}>
-                                        <li>
-                                            {item.name} -- Price is Rs.{item.price/100 || item.defaultPrice/100}
-                                        </li>
-                                        <img src = {IMG_CDN_URL+item.imageId}/>
-                                    </div>
-                        )         
-                    })
-                    : 
-                    items.map((item)=>{
-                        return (
-                                    <div key={item.id}>
-                                        <li>
-                                            {item.name} -- Price is Rs.{item.price/100 || item.defaultPrice/100}
-                                        </li>
-                                        <img src = {IMG_CDN_URL+item.imageId}/>
-                                    </div>
-                        )         
-                    })
+                    (vegOnly) ? mapItems(vegItems) : mapItems(items)
                 }
             </ul>
         </div>

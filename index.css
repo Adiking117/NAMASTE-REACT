@@ -9,130 +9,180 @@
   .header {
     display: flex;
     justify-content: space-between;
-    margin: 10px;
-    width: auto;
-    background-color: rgb(1, 163, 144);
-    border-radius: 5px;
-    box-shadow: -1px 4px 20px 14px rgba(0, 0, 0, 0.2);
-    color: black;
-    font-weight: bold;
-  }
-  
-  .logo {
-    padding-left: 10px;
-    width: 100px;
-  }
-  
-  .nav-items {
-    padding: 0 10px 0;
-    width: auto;
-  }
-  
-  .nav-items > ul {
-    list-style-type: none;
-    display: flex;
-  }
-  
-  .nav-items > ul > li {
-    padding: 40px 10px 0 0;
-    font-size: large;
-    cursor: pointer;
-  }
+    align-items: center;
+    padding: 20px;
+    background-color: #333; /* Change this to your desired background color */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
 
-  .nav-items > ul > button {
-    background-color: rgb(239, 239, 173);
-    padding: 40px 10px 0 0;
-    font-size: large;
+.logo-container {
+    flex: 1;
+}
+
+.logo {
+    max-width: 100px; /* Adjust the max-width as needed */
+}
+
+.nav-items ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-items ul li {
+    color: #fff; /* Change this to your desired text color */
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.nav-items ul li a {
+    text-decoration: none;
+    color: #fff; /* Change this to your desired link color */
+    transition: color 0.3s ease;
+}
+
+.nav-items ul li a:hover {
+    color: #ffcc00; /* Change this to your desired link hover color */
+}
+
+.login-btn {
+    background-color: #ffcc00; /* Change this to your desired button color */
+    color: #333; /* Change this to your desired button text color */
+    border: none;
+    padding: 10px 15px;
     cursor: pointer;
-  }
-  
-  
-  .nav-items > ul > .login-btn:hover {
-    background-color: orange;
-  }
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.login-btn:hover {
+    background-color: #fff; /* Change this to your desired button hover color */
+    color: #333; /* Change this to your desired button text hover color */
+}
+
+/* Add animation for the header */
+.header:hover {
+    background-color: #555; /* Change this to your desired background color on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
   
   /* Body CSS */
-  .search-container {
-    margin: 20px auto;
-    text-align: center;
-    max-width: 100%;
-    position: relative;
-  }
-  
-  .search-container .search-input {
-    width: 40%;
-    box-sizing: border-box;
-    border-bottom-left-radius: 5px;
-    border-top-left-radius: 5px;
-    background-color: #ffffff;
-    box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.08);
-    padding: 14px 15px 14px 20px;
-    border: 1px solid #aabcca;
-    border-right: 0;
-    color: #000000;
-    outline: none;
-  }
-  
-  .search-container .search-btn {
-    border-bottom-right-radius: 5px;
-    border-top-right-radius: 5px;
-    background-color: #0768b3;
-    box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.08);
-    color: #ffffff;
-    padding: 15px 22px;
-    margin-left: -4px;
-    cursor: pointer;
+  .body {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.filter {
+    margin-bottom: 20px;
+}
+
+.filter-btn {
+    background-color: #007bff; /* Change this to your desired button color */
+    color: #fff; /* Change this to your desired button text color */
     border: none;
-    outline: none;
-  }
-  .search-container .search-btn:hover {
-    background-color: #016034;
-  }
-  
-  .res-container {
-    width: auto;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.filter-btn:hover {
+    background-color: #0056b3; /* Change this to your desired button hover color */
+}
+
+.search-container {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.search-input {
+    flex: 1;
+    padding: 10px;
+}
+
+.search-btn {
+    background-color: #28a745; /* Change this to your desired button color */
+    color: #fff; /* Change this to your desired button text color */
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.search-btn:hover {
+    background-color: #218838; /* Change this to your desired button hover color */
+}
+
+.res-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-  }
-  
-  .res-card {
-    width: 200px;
-    border-radius: 5px;
-    box-shadow: -1px 5px 10px 5px rgba(42, 42, 42, 0.2);
-    padding: 10px;
-    margin: 20px;
-    cursor: pointer;
-  }
-  
-  .res-card:hover {
-    transform: scale(1.05);
-  }
-  
-  .res-card > img {
-    width: 100%;
-    border-radius: 10px;
-  }
-  
-  .filter {
-    margin: 20px auto;
-    text-align: center;
-    max-width: 100%;
-    position: relative;
-  }
+    gap: 20px;
+}
 
-  .filter .filter-btn {
-    border-bottom-right-radius: 5px;
-    border-top-right-radius: 5px;
-    background-color: #0768b3;
-    box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.08);
-    color: #ffffff;
-    padding: 15px 22px;
-    margin-left: -4px;
-    cursor: pointer;
-    border: none;
-    outline: none;
-  }
+/* Style for RestaurantCard */
+.res-container a {
+  text-decoration: none;
+  width: calc(33.33% - 20px);
+  box-sizing: border-box;
+}
+
+/* Styling for restaurant card links */
+.res-container a:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #f8f9fa; /* Change this to your desired link hover background color */
+  border-radius: 8px;
+  transition: box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.res-container a:hover .RestaurantCard {
+  border: 2px solid #007bff; /* Change this to your desired border color */
+}
+
+/* Add animation for the restaurant cards */
+.res-container a {
+  transition: box-shadow 0.3s ease;
+}
+
+/* Add animation for the body */
+.body:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.res-card {
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.res-card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+}
+
+.res-logo {
+  max-width: 100%; /* Ensure the image doesn't exceed its container */
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+h3 {
+  font-size: 1.5rem;
+  margin-bottom: 5px;
+  color: #0a0a0a; /* Adjust the text color as needed */
+}
+
+h4 {
+  font-size: 1rem;
+  margin: 5px 0;
+  color: #131313; /* Adjust the text color as needed */
+}
+
+/* Customize styles further as needed */
+
 
 
   /*Shimmer CSS */
