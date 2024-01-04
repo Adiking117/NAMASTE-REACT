@@ -1,7 +1,8 @@
-import { useState , useEffect } from "react";
+import { useState } from "react";
 import Shimmer from "./Shimmer";
-import { swiggy_menu_api_URL,IMG_CDN_URL } from "../utils/constants";
+import { IMG_CDN_URL } from "../utils/constants";
 import { useParams } from "react-router-dom";
+import useRestaurantMenu from "../utils/useRestaurantMenu";
 
 function getName(resInfo){
     const resName = resInfo.cards[0]?.card.card.info;
@@ -36,19 +37,10 @@ function mapItems(items){
 
 const RestaurantMenu = () => {
     const { resId } = useParams();
-    const [resInfo,setResInfo] = useState(null)
     const [vegOnly,setVegOnly] = useState(false)
 
-    useEffect(()=>{
-        fetchMenu();
-    },[])
-
-    const fetchMenu = async() => {
-        const data = await fetch(swiggy_menu_api_URL+resId)
-        const json = await data.json()
-        //setResInfo(json.data);
-        setResInfo(json.data)
-    }
+    // custom hook
+    const resInfo = useRestaurantMenu(resId);
     
     const handleVegOnlyClick = () => {
         setVegOnly(true)

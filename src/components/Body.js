@@ -1,8 +1,9 @@
 import RestaurantCard from './RestaurantCard.js'
 import { useState,useEffect } from 'react';
-import { swiggy_api_URL } from '../utils/constants.js';
 import Shimmer from './Shimmer.js';
 import { Link } from 'react-router-dom';
+import useOnlineStatus from '../utils/useOnlineStatus.js';
+import useRestaurantCard from '../utils/useRestaurantCard.js';
 
 function filterData(searchText, restaurants) {
     const filterData = restaurants.filter((res) =>
@@ -27,22 +28,24 @@ const Body = () => {
     const [filteredList,setFilteredList] = useState([])
     const [searchText,setSearchText] = useState("");
 
+    const resCard = useRestaurantCard();
+    
     useEffect(()=>{
-        fetchData();
-    },[])
-
-    const fetchData = async() => {
-        const data = await fetch(swiggy_api_URL);
-        const json = await data.json();
-        console.log(json)
-        const arr = json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
-        console.log(arr)
-        const newarr = mapData(arr);
+        // console.log("rescard",resCard)
+        const newarr = mapData(resCard);
         setListOfRestaurants(newarr);
         setFilteredList(newarr);
+    },[resCard])
+    
+
+    const onlineStatus = useOnlineStatus();
+    if(onlineStatus===false){
+        return(
+            <h1>Net Gela</h1>
+        )
     }
 
-    console.log("Body Component Re-Rendered after updating state Variable")
+    // console.log("Body Component Re-Rendered after updating state Variable")
 
     return listOfRestaurants.length === 0 ? <Shimmer/> : (
         <div className='body'>
