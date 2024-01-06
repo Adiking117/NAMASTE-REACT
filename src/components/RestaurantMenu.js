@@ -3,6 +3,7 @@ import Shimmer from "./Shimmer";
 import { IMG_CDN_URL } from "../utils/constants";
 import { useParams } from "react-router-dom";
 import useRestaurantMenu from "../utils/useRestaurantMenu";
+import RestaurantCategory from "./RestaurantCategory";
 
 function getName(resInfo){
     const resName = resInfo.cards[0]?.card.card.info;
@@ -41,6 +42,7 @@ const RestaurantMenu = () => {
 
     // custom hook
     const resInfo = useRestaurantMenu(resId);
+    // console.log(resInfo)
     
     const handleVegOnlyClick = () => {
         setVegOnly(true)
@@ -50,10 +52,19 @@ const RestaurantMenu = () => {
 
     const resdetails = getName(resInfo);
     // console.log("resdetails" ,resdetails)
-    const items = getItems(resInfo);
+    // const items = getItems(resInfo);
     // console.log("all-items" ,items)
-    const vegItems = items.filter((item)=>{return item.isVeg===1})
+    // const vegItems = items.filter((item)=>{return item.isVeg===1})
     // console.log("veg-items",vegItems);
+
+    const resCards = resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards
+    // console.log(resCards)
+    const categories = resCards.filter((c)=>{
+        return c.card?.["card"]?.["@type"] === "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+    })
+    // console.log(categories)
+
+
 
     return (
         <div className="menu">
@@ -61,11 +72,20 @@ const RestaurantMenu = () => {
             <h3>{resdetails.city} - {resdetails.avgRating}</h3>
             <br/>
             <button onClick={handleVegOnlyClick}>Veg-Only</button>
-            <ul className="item-list">
+            {/*<ul className="item-list">
                 {
                     (vegOnly) ? mapItems(vegItems) : mapItems(items)
                 }
-            </ul>
+            </ul>*/}
+            <div>
+                {
+                    categories.map((c)=>{
+                        return <div key={c.card.card.itemCards[0].card.info.id}>
+                            <RestaurantCategory data={c?.card?.card}/>
+                        </div> 
+                    })
+                }
+            </div>
         </div>
     )
 }

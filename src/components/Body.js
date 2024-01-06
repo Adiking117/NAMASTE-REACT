@@ -1,4 +1,4 @@
-import RestaurantCard from './RestaurantCard.js'
+import RestaurantCard, { PromotedLabel } from './RestaurantCard.js'
 import { useState,useEffect } from 'react';
 import Shimmer from './Shimmer.js';
 import { Link } from 'react-router-dom';
@@ -14,9 +14,9 @@ function filterData(searchText, restaurants) {
 
 function mapData(arr){
     const newarr = arr.map((res) => {
-        const { id, name, cloudinaryImageId, costForTwo, cuisines, avgRating } = res?.info;
+        const { id, name, cloudinaryImageId, costForTwo, cuisines, avgRating , isOpen } = res?.info;
         const { deliveryTime } = res?.info?.sla;
-        const newobj = { id, name, cloudinaryImageId, costForTwo, cuisines, avgRating, deliveryTime };
+        const newobj = { id, name, cloudinaryImageId, costForTwo, cuisines, avgRating, deliveryTime , isOpen};
         return newobj;
     });
     return newarr;
@@ -29,6 +29,7 @@ const Body = () => {
     const [searchText,setSearchText] = useState("");
 
     const resCard = useRestaurantCard();
+    const PromotedRestaurant = PromotedLabel(RestaurantCard);
     
     useEffect(()=>{
         // console.log("rescard",resCard)
@@ -44,7 +45,8 @@ const Body = () => {
             <h1>Net Gela</h1>
         )
     }
-
+    // console.log("rEstaurant list", listOfRestaurants)
+    console.log("filteredList", filteredList);
     // console.log("Body Component Re-Rendered after updating state Variable")
 
     return listOfRestaurants.length === 0 ? <Shimmer/> : (
@@ -82,7 +84,13 @@ const Body = () => {
                   filteredList.map(
                     (restaurant) => 
                     <Link key={restaurant.id} to={"/restaurants/"+restaurant.id}>
-                        <RestaurantCard key={restaurant.id} resData={restaurant}/>
+                    {
+                        (restaurant.isOpen)
+                        ?
+                        (<PromotedRestaurant resData={restaurant}/>)
+                        :
+                        (<RestaurantCard resData={restaurant}/>)
+                    }
                     </Link>
                   )
                 }

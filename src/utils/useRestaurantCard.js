@@ -11,9 +11,9 @@ const useRestaurantCard = () => {
     const fetchData = async() =>{
         const data1 = await fetch(swiggy_api_URL)
         const json = await data1.json();
-        console.log("json",json)
-        const arr = json.data.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
-        console.log("Arr",arr)
+        // console.log("json",json)
+        const arr = json.data.cards[5]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+        // console.log("Arr",arr)
         setResCard(arr)
     }
     return resCard;
