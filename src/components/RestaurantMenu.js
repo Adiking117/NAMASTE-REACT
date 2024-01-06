@@ -39,6 +39,7 @@ function mapItems(items){
 const RestaurantMenu = () => {
     const { resId } = useParams();
     const [vegOnly,setVegOnly] = useState(false)
+    const [showIndex,setShowIndex] = useState(0)
 
     // custom hook
     const resInfo = useRestaurantMenu(resId);
@@ -79,9 +80,13 @@ const RestaurantMenu = () => {
             </ul>*/}
             <div>
                 {
-                    categories.map((c)=>{
-                        return <div key={c.card.card.itemCards[0].card.info.id}>
-                            <RestaurantCategory data={c?.card?.card}/>
+                    categories.map((c,index)=>{
+                        return <div key = {c?.card?.card.title}>
+                            <RestaurantCategory 
+                                data={c?.card?.card}
+                                showItems={index === showIndex ? true : false} // Controlled Component
+                                setShowIndex = {()=>setShowIndex(index)}
+                            />
                         </div> 
                     })
                 }

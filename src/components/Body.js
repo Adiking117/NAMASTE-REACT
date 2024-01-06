@@ -46,7 +46,7 @@ const Body = () => {
         )
     }
     // console.log("rEstaurant list", listOfRestaurants)
-    console.log("filteredList", filteredList);
+    // console.log("filteredList", filteredList);
     // console.log("Body Component Re-Rendered after updating state Variable")
 
     return listOfRestaurants.length === 0 ? <Shimmer/> : (

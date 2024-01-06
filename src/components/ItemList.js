@@ -2,7 +2,7 @@ import { CDN_URL } from "../utils/constants"
 
 const ItemList = (props) => {
     const {items} = props
-    console.log("items ",items)
+    // console.log("items ",items)
     return(
         <div className="item-list">
             {
