@@ -1,9 +1,10 @@
 import RestaurantCard, { PromotedLabel } from './RestaurantCard.js'
-import { useState,useEffect } from 'react';
+import { useState,useEffect, useContext } from 'react';
 import Shimmer from './Shimmer.js';
 import { Link } from 'react-router-dom';
 import useOnlineStatus from '../utils/useOnlineStatus.js';
 import useRestaurantCard from '../utils/useRestaurantCard.js';
+import UserContext from '../utils/UserContext.js'
 
 function filterData(searchText, restaurants) {
     const filterData = restaurants.filter((res) =>
@@ -49,6 +50,7 @@ const Body = () => {
     // console.log("filteredList", filteredList);
     // console.log("Body Component Re-Rendered after updating state Variable")
 
+    const {loggedInUser , setUserName} = useContext(UserContext)
     return listOfRestaurants.length === 0 ? <Shimmer/> : (
         <div className='body'>
             <div className='filter'>
@@ -78,6 +80,14 @@ const Body = () => {
                             setFilteredList(filteredData)
                         }}
                 >Search</button>   
+            </div>
+            <div>
+                <label htmlFor="name">UserName :</label>
+                <input
+                    id="name"
+                    value={loggedInUser}
+                    onChange={(e) => setUserName(e.target.value)}
+                />
             </div>
             <div className='res-container'>
                 {
