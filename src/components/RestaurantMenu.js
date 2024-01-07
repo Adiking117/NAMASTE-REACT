@@ -39,7 +39,7 @@ function mapItems(items){
 const RestaurantMenu = () => {
     const { resId } = useParams();
     const [vegOnly,setVegOnly] = useState(false)
-    const [showIndex,setShowIndex] = useState(0)
+    const [showIndex,setShowIndex] = useState()
 
     // custom hook
     const resInfo = useRestaurantMenu(resId);
