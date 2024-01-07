@@ -19,7 +19,7 @@ const Cart1 = () => {
             <div>
                 <button onClick={handleClearCart}>Clear Button</button>
                 {cartItems.length === 0 && <h1>Cart is Empty</h1>}
-                <ItemList items={cartItems}/>
+                <ItemList filteredItems={cartItems}/>
             </div>
         </div>
     )

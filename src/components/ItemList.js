@@ -15,7 +15,7 @@ const ItemList = (props) => {
     return(
         <div className="item-list">
             {
-                filteredItems.map((item)=>{
+                filteredItems && filteredItems.map((item)=>{
                     return (
                         <div key = {item.card.info.id}>
                             <span>{item.card.info.name}</span>

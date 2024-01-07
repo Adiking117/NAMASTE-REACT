@@ -6,7 +6,7 @@ const RestaurantCategory = (props) => {
     // console.log("data category",data)
 
 
-    // UnControlled Component
+    // // UnControlled Component
     // const [showItems,setShowItems] = useState(showItems)
     // const handleClick = () => {
     //     setShowItems(!showItems)
