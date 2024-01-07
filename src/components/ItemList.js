@@ -3,8 +3,8 @@ import { CDN_URL } from "../utils/constants"
 import { addItem } from "../utils/cartSlice"
 
 const ItemList = (props) => {
-    const {items} = props
-    // console.log("items ",items)
+    const {filteredItems} = props
+    // console.log("items ",filteredItems)
 
     const dispatch = useDispatch()
     const handleAddItems = (item) => {
@@ -15,12 +15,11 @@ const ItemList = (props) => {
     return(
         <div className="item-list">
             {
-                items.map((item)=>{
+                filteredItems.map((item)=>{
                     return (
                         <div key = {item.card.info.id}>
                             <span>{item.card.info.name}</span>
                             <span> ₹ {item.card.info.price/100 || item.card.info.defaultPrice/100}</span>
-                            {/* <span>{item.card.info.description}</span> */}
                             <img src={CDN_URL+item.card.info.imageId}/>
                             <button onClick={()=> handleAddItems(item)}>Add +</button>
                         </div>
